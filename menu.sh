@@ -1,4 +1,3 @@
-
 #!/bin/bash
 # Author: Wyne Ybanez
 # Script Description: BERdetails menu
@@ -9,68 +8,42 @@ IntroMessage="Welcome to BER (Building Energy Rating) details recording. What wo
 echo
 echo "$IntroMessage" 
 
-PS3='Please choose an option: '
+PS3='Main menu - Please choose an option: (1)Add (2)Search (3)Delete (4)Mail (5)Exit '
  
 options=("Add" "Search" "Delete" "Mail" "Exit")
-
 select opt in "${options[@]}"
+
 do
     case $opt in
-
-	#Add script
         "Add")
-	    	echo -n "Are you sure you want to Add something? [y or n]"
-		read word
-		case $word in 
-			[yY] | [yY][Ee][Ss] )			
-  	          	./add.sh
-			;;
+	echo "You have chosen to add a record."		
+  	./add.sh
+	cat BERdetails.txt
+	;;
 
-			[nN] | [n|N][O|o] )
-			echo "Cancelling request"
-			exit 1
-            		;;
-
-			*) echo "Invalid Input"
-			;;
-	
-	# Search script
         "Search")
-		echo "You have chosen to search a record."
-            	./search.sh
-            	;;
+	echo "You have chosen to search a record."
+        ./search.sh
+        ;;
 
-	# Delete script
         "Delete")
-		echo "Are you sure you want to delete a record?"
-		read word
-		case $word in 
-			[yY] | [yY][Ee][Ss] )
-            		./remove.sh
-            		;;
-			
-			[nN] | [n|N][O|o] )
-			echo "Cancelling request"
-			exit 1
-			;;
+	echo "You've chosen to delete a record."
+        ./remove.sh
+	cat BERdetails.txt
+        ;;
 
-			*) echo "Invalid Input"  
-			;;
-
-	# Mail script
 	"Mail")
-		echo "Initiating Mail Script"
-	    	./mail.sh
-	    	;;	
-
-	# Exit menu
-        "Exit")
-            	echo "You chose to exit. Goodbye and Goodluck!"
-            	break
-            	sleep 1
-            	;;
+	echo "Initiating Mail Script"
+	./mail.sh
+	;;
 	
-	# Else invalid option was chosen
+        "Exit")
+        echo "You chose to exit. Goodbye and Goodluck!"
+        break
+        sleep 1
+        ;;
+
         *) echo "Invalid option $REPLY";;
     esac
 done
+ 
